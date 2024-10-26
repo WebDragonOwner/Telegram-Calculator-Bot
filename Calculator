@@ -3,10 +3,11 @@ import math
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 
+# Mualliflik huquqlari
+# Dasturchi: @DragonOwner
+
 expressions = {}
 user_count = 0
-admin_id = "7440949683"
-admin_password = "759153456"
 
 def create_keyboard():
     keyboard = [
@@ -75,11 +76,11 @@ async def about(update: Update, context):
     )
 
 async def admin_panel(update: Update, context):
-    if str(update.message.from_user.id) == admin_id:
+    if str(update.message.from_user.id) == "YOUR_ADMIN_ID":  # O'zingizning admin ID ni kiriting
         await update.message.reply_text("Iltimos, admin parolini kiriting:")
 
 async def check_password(update: Update, context):
-    if update.message.text == admin_password:
+    if update.message.text == "YOUR_ADMIN_PASSWORD":  # O'zingizning admin parolingizni kiriting
         context.user_data['is_admin'] = True
         await show_admin_panel(update)
     else:
@@ -108,8 +109,7 @@ async def handle_admin_messages(update: Update, context):
         await update.message.reply_text("Rasm va matn yuborildi!")
 
 if __name__ == '__main__':
-    BOT_TOKEN = os.environ['BOT_TOKEN']
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    app = ApplicationBuilder().build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("about", about))
